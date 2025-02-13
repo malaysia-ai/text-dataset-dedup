@@ -1,2 +1,4 @@
 *.parquet
-embedding
+embedding*
+*.json
+dedup-podcasts

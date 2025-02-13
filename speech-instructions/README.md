@@ -11,4 +11,9 @@ CUDA_VISIBLE_DEVICES=1,2 \
 python3.10 embedding.py \
 --filename filtered-politicians.parquet \
 --replication 3
+
+CUDA_VISIBLE_DEVICES=1,2 \
+python3.10 embedding.py \
+--filename filtered-podcast.parquet \
+--replication 3 --folder embedding-podcast
 ```
