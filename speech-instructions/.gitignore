@@ -1,4 +1,7 @@
 *.parquet
 embedding*
 *.json
+*.jsonl
+dedup-parliament
 dedup-podcasts
+partition-instructions-part*
