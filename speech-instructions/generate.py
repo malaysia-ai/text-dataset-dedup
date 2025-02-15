@@ -46,7 +46,8 @@ batch_size = 16
 @click.option('--index', default = 0)
 @click.option('--retry', default = 5)
 @click.option('--threshold', default = -15)
-def main(model_name, input_file, folder, global_index, index, retry, threshold):
+@click.option('--maxlen', default = 200)
+def main(model_name, input_file, folder, global_index, index, retry, threshold, maxlen):
     alignment_model, alignment_tokenizer = load_alignment_model(
         device,
         dtype=torch.float16 if device == "cuda" else torch.float32,
@@ -104,11 +105,15 @@ def main(model_name, input_file, folder, global_index, index, retry, threshold):
         ref_audio_len = audios.shape[-1] // hop_length
         speed = 1
 
-        gen_text = instructions[i]['question'].replace('\'', '').replace('"', '').replace('!', '.')
+        if 'pronunciation' in instructions[i] and len(instructions[i]['pronunciation']):
+            gen_text = instructions[i]['pronunciation']
+        else:
+            gen_text = instructions[i]['question']
+        gen_text = gen_text.replace('\'', '').replace('"', '').replace('!', '.')
         gen_text = re.sub(r'[ ]+', ' ', gen_text).strip()
         if len(gen_text) < 3:
             continue
-        if len(gen_text) > 200:
+        if len(gen_text) > maxlen:
             continue
         gen_text  = f'. {gen_text}'
         final_text_lists, durations, after_durations = [], [], []
