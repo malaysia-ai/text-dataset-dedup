@@ -8,6 +8,7 @@
 
 - [prepare-malaysia-parliament.ipynb](prepare-malaysia-parliament.ipynb).
 - [prepare-malaysian-podcast.ipynb](prepare-malaysian-podcast.ipynb).
+- [prepare-malaysian-others.ipynb](prepare-malaysian-others.ipynb).
 
 2. Convert to embedding,
 
@@ -23,6 +24,11 @@ CUDA_VISIBLE_DEVICES=1,2 \
 python3.10 embedding.py \
 --filename filtered-podcast.parquet \
 --replication 3 --folder embedding-podcast
+
+CUDA_VISIBLE_DEVICES=0,2 \
+python3.10 embedding.py \
+--filename filtered-others.parquet \
+--replication 3 --folder embedding-others
 ```
 
 2. Merge and dedup,
